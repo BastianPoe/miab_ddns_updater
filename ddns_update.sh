@@ -5,6 +5,7 @@ password=${PASSWORD}
 server=${SERVER}
 hostname=${HOSTNAME}
 interval=${INTERVAL}
+debug=${DEBUG}
 
 if [ "${email}" == "" ]; then
 	echo Please provide an EMAIL via env variable. Aborting.
@@ -27,16 +28,25 @@ if [ "${hostname}" == "" ]; then
 fi
 
 if [ "${interval}" == "" ]; then
-	interval = 600
+	interval=600
+fi
+
+if [ "${debug}" == "" ]; then
+	debug=false
 fi
 
 echo Config
 echo Server:   ${server}
-echo Email:    ${server}
-echo Password: ******
+echo Email:    ${email}
+echo Password: \*\*\*\*\*\*
 echo Hostname: ${hostname}
 echo Interval: ${interval} s
+echo Debug:    ${debug}
 echo
+
+if ${debug}; then
+	set -x
+fi
 
 while [ 1 ]; do
 	echo `date`: Starting DDNS update
